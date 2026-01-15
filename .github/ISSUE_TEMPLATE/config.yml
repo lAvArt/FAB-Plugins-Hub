@@ -1,0 +1,11 @@
+blank_issues_enabled: true
+contact_links:
+  - name: 📚 Documentation
+    url: https://github.com/lAvArt/FAB-Plugins-Hub/tree/main/docs
+    about: Browse our comprehensive documentation
+  - name: ❓ FAQ
+    url: https://github.com/lAvArt/FAB-Plugins-Hub/blob/main/docs/faq.md
+    about: Check frequently asked questions
+  - name: 🗺️ Roadmap
+    url: https://github.com/lAvArt/FAB-Plugins-Hub/blob/main/ROADMAP.md
+    about: View our development roadmap
