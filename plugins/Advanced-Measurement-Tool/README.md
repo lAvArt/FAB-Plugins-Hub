@@ -2,7 +2,7 @@
 
 A professional-grade measurement and analysis plugin for Unreal Engine 5, designed to give level designers, architects, and QA teams precise control over their spatial data.
 
-![AMT Banner](https://via.placeholder.com/1200x300?text=Advanced+Measurement+Tool)
+![AMT Banner](https://raw.githubusercontent.com/lAvArt/FAB-Plugins-Hub/main/plugins/Advanced-Measurement-Tool/Resources/Banner.png)
 
 ## Overview
 
