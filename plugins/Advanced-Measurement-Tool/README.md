@@ -53,7 +53,7 @@ Open the AMT Dashboard by clicking the **Toolbar Button** (Ruler Icon) or using 
 | **Angle** | `A` | Click Apex -> Click Start -> Click End. |
 | **Area** | `R` | Click multiple points to define shape. Press `Enter` to close loop. |
 | **Volume** | `V` | Hover over an actor and click to measure. |
-| **Clear** | `Delete` | Remove the currently selected measurement. |
+| **Clear** | `Delete - Backspace` | Remove the currently hovered measurement. |
 | **Exit Tool** | `Esc` | Stop the current measurement action. |
 
 ### Dashboard Overview
