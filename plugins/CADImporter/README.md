@@ -39,6 +39,7 @@ This plugin provides a robust pipeline for importing AutoCAD **DXF** and generic
 
 *   **Supported Platforms**: Windows, Mac, Linux
 *   **Engine Versions**: 5.3+
+*   **Required Plugins**: ProceduralMeshComponent (Enabled by default)
 *   **Support**: [GitHub Issues](https://github.com/lAvArt/CADImporter/issues) or `contact@lavartstudio.com`
 
 ---
