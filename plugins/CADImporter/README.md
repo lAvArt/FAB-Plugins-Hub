@@ -1,5 +1,3 @@
-# CAD 2D Importer
-
 ![Banner](Resources/Banner.png)
 
 **Transform 2D CAD drawings into native Unreal Engine Splines and 3D Geometry.**
