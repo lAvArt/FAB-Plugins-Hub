@@ -25,27 +25,34 @@ This plugin reads standard **DXF** (AutoCAD) files and our custom **JSON** schem
 4.  **Build**: Use the built-in "3D Toolbox" to extrude walls or floors from your splines.
 
 ## Technical Information
-**Features**:
-*   Editor Import provided via easy-to-use Tool Window
-*   Runtime Import available via C++ API (`CADCore` module)
-*   Spline Actor Generation (Grouped by Layer)
-*   Procedural Mesh Generation (Walls/Floors)
-*   Editor Utility Widgets for detailed control
-*   Batch Processing (Select by Layer)
 
-**Code Modules**:
-*   `CADCore` (Runtime)
-*   `CADIO` (Editor)
-*   `CADEditor` (Editor)
+Features:
 
-**Number of Blueprints**: 0 (Full C++ Native)
-**Number of C++ Classes**: 15+
-**Network Replicated**: No
-**Supported Development Platforms**: Windows, Mac, Linux
-**Supported Target Build Platforms**: Windows, Mac, Linux
+*   **Direct DXF & JSON Import**: Import CAD drawings as native Unreal Splines, preserving Layers and Units.
+*   **3D Building Tools**: Generate clean 3D Walls and Floors directly from 2D plans with extrusion and welding.
+*   **Batch Processing**: Organize, select, and process actors by Layer for rapid iteration.
 
-**Documentation**: [Link to Documentation] (Included in Plugin /Docs folder)
-**Example Project**: N/A
+Code Modules:
+
+*   **CADCore** (Runtime)
+*   **CADIO** (Editor)
+*   **CADEditor** (Editor)
+
+Required Plugins:
+*   **ProceduralMeshComponent** (Built-in)
+
+Number of Blueprints: 0
+Number of C++ Classes: 15+
+Network Replicated: No
+Supported Development Platforms:
+*   Windows: Yes
+*   Mac: Yes
+Supported Target Build Platforms: Windows, Mac, Linux
+Documentation Link: https://github.com/lAvArt/CADImporter/blob/main/Plugins/CADImporter/Docs/UserGuide.md
+Example Project: N/A
+
+Important/Additional Notes:
+NURBS Splines are tessellated into Polylines during import for maximum compatibility and performance.
 
 ## FAQ
 
