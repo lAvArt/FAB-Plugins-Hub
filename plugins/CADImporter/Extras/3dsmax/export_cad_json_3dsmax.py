@@ -1,4 +1,6 @@
 
+# Copyright lAvArt Studio, 2026. All Rights Reserved.
+
 import os
 import json
 import uuid
