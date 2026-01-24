@@ -25,6 +25,7 @@ This plugin provides a robust pipeline for importing AutoCAD **DXF** and generic
 
 *   [**FAB Listing Info**](Docs/FAB_Listing.md)
 *   [**User Guide**](Docs/UserGuide.md)
+*   [**Export Scripts**](Extras/README.md)
 
 ## 🎮 Quick Start
 

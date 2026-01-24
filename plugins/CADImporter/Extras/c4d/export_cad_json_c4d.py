@@ -13,22 +13,22 @@ def get_system_units(doc):
     Returns the document units as a string.
     Unreal CAD Importer expects: "mm", "cm", "m", "in", "ft"
     """
-    udata = doc.GetDocumentData()
+    udata = doc.GetDataInstance()
     unit_id = udata[c4d.DOCUMENT_DOCUNIT]
     
     if unit_id == c4d.DOCUMENT_UNIT_MM: return "mm"
     if unit_id == c4d.DOCUMENT_UNIT_CM: return "cm"
     if unit_id == c4d.DOCUMENT_UNIT_M:  return "m"
-    if unit_id == c4d.DOCUMENT_UNIT_IN: return "in"
-    if unit_id == c4d.DOCUMENT_UNIT_FT: return "ft"
+    if unit_id == c4d.DOCUMENT_UNIT_INCH: return "in"
+    if unit_id == c4d.DOCUMENT_UNIT_FOOT: return "ft"
     
     return "cm" # Default fallback
 
-def get_layer_color(obj):
+def get_layer_color(obj, doc):
     """
     Returns the display color of the object's layer, or the object's color if no layer.
     """
-    layer = obj.GetLayerObject()
+    layer = obj.GetLayerObject(doc)
     color = c4d.Vector(1, 1, 1) # Default White
     
     if layer:
@@ -45,8 +45,8 @@ def get_layer_color(obj):
         "a": 1.0
     }
 
-def get_layer_name(obj):
-    layer = obj.GetLayerObject()
+def get_layer_name(obj, doc):
+    layer = obj.GetLayerObject(doc)
     if layer:
         return layer.GetName()
     return "Default"
@@ -89,13 +89,16 @@ def export_to_json(filepath, selected_only=False):
         
         if not spline:
             continue
+
+        # Get Global Matrix for World Space transform
+        mg = obj.GetMg()
             
         # Process Layer
-        layer_name = get_layer_name(obj)
+        layer_name = get_layer_name(obj, doc)
         if layer_name not in processed_layers:
             processed_layers.add(layer_name)
             
-            layer_obj = obj.GetLayerObject()
+            layer_obj = obj.GetLayerObject(doc)
             is_visible = True
             if layer_obj:
                 is_visible = layer_obj.GetLayerData(doc)['view']
@@ -103,7 +106,7 @@ def export_to_json(filepath, selected_only=False):
             export_data["Layers"].append({
                 "Name": layer_name,
                 "bVisible": is_visible,
-                "Color": get_layer_color(obj)
+                "Color": get_layer_color(obj, doc)
             })
             
         # Extract Spline Data
@@ -157,29 +160,42 @@ def export_to_json(filepath, selected_only=False):
                 
                 # Tangents
                 # GetTangent returns dict: {'vl': Vector, 'vr': Vector} relative to the point
-                tangents = spline.GetTangent(pt_idx) 
-                vl = tangents['vl']
-                vr = tangents['vr']
+                vl = c4d.Vector(0,0,0)
+                vr = c4d.Vector(0,0,0)
+                
+                if spline.GetTangentCount() > pt_idx:
+                    try:
+                        tangents = spline.GetTangent(pt_idx) 
+                        vl = tangents['vl']
+                        vr = tangents['vr']
+                    except IndexError:
+                        pass # Keep zero tangents
+
+                # Transform to World Space
+                pt = mg * pt
+                vl = mg.MulV(vl)
+                vr = mg.MulV(vr)
                 
                 # C4D Tangents to Unreal Tangents
                 # Unreal Arrive = InVec. In C4D 'vl' is the handle pointing towards previous point.
                 # In Unreal, Arrive Tangent is derivative vector entering the knot.
-                # Arrive = (Point - PrevHandleWorldPos) * 3
+                # Arrive = (Point - PrevHandleWorldPos)
                 # PrevHandleWorldPos = Point + vl
-                # So Arrive = (Point - (Point + vl)) * 3 = -vl * 3
-                
-                arrive = -vl * 3.0
+                # So Arrive = (Point - (Point + vl)) = -vl
+                arrive = -vl * 4.0
                 
                 # Unreal Leave = OutVec. In C4D 'vr' is handle pointing towards next point.
-                # Leave = (NextHandleWorldPos - Point) * 3
+                # Leave = (NextHandleWorldPos - Point)
                 # NextHandleWorldPos = Point + vr
-                # So Leave = ((Point + vr) - Point) * 3 = vr * 3
+                # So Leave = ((Point + vr) - Point) = vr
+                leave = vr * 4.0
                 
-                leave = vr * 3.0
-                
-                points_3d.append({"x": pt.x, "y": pt.y, "z": pt.z})
-                arrive_tangents.append({"x": arrive.x, "y": arrive.y, "z": arrive.z})
-                leave_tangents.append({"x": leave.x, "y": leave.y, "z": leave.z})
+                # Convert Y-Up (C4D) to Z-Up (Unreal)
+                # We perform a -90 degree rotation around X-axis: (x, y, z) -> (x, -z, y)
+                # This preserves handedness (unlike simple swizzling which mirrors).
+                points_3d.append({"x": pt.x, "y": -pt.z, "z": pt.y})
+                arrive_tangents.append({"x": arrive.x, "y": -arrive.z, "z": arrive.y})
+                leave_tangents.append({"x": leave.x, "y": -leave.z, "z": leave.y})
                 
                 # Point Type
                 # C4D stores interpolation per segment usually, but points can have soft/hard interpolation
@@ -223,17 +239,17 @@ def export_to_json(filepath, selected_only=False):
         c4d.gui.MessageDialog(f"Error exporting: {e}")
         return False
 
+
 def show_ui():
     # Helper to pick file
-    # c4d.storage.LoadDialog type: 
-    # c4d.FILESELECTTYPE_ANYTHING, _IMAGES, _SCENES
-    # We want SaveDialog
+    # c4d.storage.SaveDialog(title, force_suffix, def_file)
+    fn = c4d.storage.SaveDialog(title="Export CAD JSON", force_suffix="json", def_file="Export.json")
     
-    path = c4d.storage.SaveDialog(title="Export CAD JSON", def_file="Export.json", def_ext="json")
-    if not path:
+    if not fn:
         return
         
-    export_to_json(path, selected_only=False)
+    export_to_json(fn, selected_only=False)
 
-if __name__ == '__main__':
-    show_ui()
+# Execute main
+show_ui()
+
