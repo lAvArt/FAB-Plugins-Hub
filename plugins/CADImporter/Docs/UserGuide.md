@@ -67,4 +67,4 @@ For complex shapes that DXF handles poorly, use our included Python script:
 *   **"Black Lighting"**: Use **Convert to Static Mesh** to generate proper lightmap UVs and normals.
 
 ---
-*Support: contact@lavartstudio.com | Copyright © 2026 lAvArt Studio*
+*Support: info@lavartstudio.com | Copyright © 2026 lAvArt Studio*
