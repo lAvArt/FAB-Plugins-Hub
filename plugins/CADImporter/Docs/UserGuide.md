@@ -3,6 +3,10 @@
 ## 1. Introduction
 Thank you for using the **CAD 2D Importer**. This plugin allows you to seamlessly bring 2D vector data (DXF) into Unreal Engine as native Spline Components. This is ideal for ArchViz floor plans, path generation, and procedural modeling referencing.
 
+### Supported Data Types
+*   **DXF Entities**: LINE, LWPOLYLINE, POLYLINE (2D/3D), CIRCLE, ARC, SPLINE.
+*   **Formats**: AutoCAD DXF (2010+ recommended), Custom JSON.
+
 ## 2. Installation
 1.  Place the `CADImporter` folder into your project's `Plugins` directory (e.g., `MyProject/Plugins/CADImporter`).
 2.  Open your project.
