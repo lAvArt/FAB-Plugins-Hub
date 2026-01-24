@@ -2,8 +2,6 @@
 
 ![Banner](Resources/Banner.png)
 
-![Icon](Resources/Icon128.png)
-
 **Transform 2D CAD drawings into native Unreal Engine Splines and 3D Geometry.**
 
 This plugin provides a robust pipeline for importing AutoCAD **DXF** and generic **JSON** spline data into Unreal Engine. It is designed for Architects, Level Designers, and Visualization specialists who need precise reference lines or want to auto-generate walls from floor plans.
