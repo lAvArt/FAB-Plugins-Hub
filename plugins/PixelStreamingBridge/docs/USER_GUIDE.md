@@ -10,6 +10,15 @@ Pixel Streaming Bridge (PSB) is a robust, production-ready solution for integrat
 - **Modern Web UI**: A production-ready Next.js React template (`psb-ui`) included.
 - **Iframe Optimized**: Designed to work reliably when embedding Pixel Streaming in iframes.
 
+### Responsive UI Design
+
+The included web template is fully responsive, ensuring your application looks great on any device:
+
+| Desktop | Tablet | Mobile |
+|---------|--------|--------|
+| ![Desktop](./resources/WebUI_Generic_DesktopSize.png) | ![Tablet](./resources/WebUI_Generic_TabletSize.png) | ![Mobile](./resources/WebUI_Generic_MobileSize.png) |
+
+
 ## Getting Started
 
 ### 1. Installation

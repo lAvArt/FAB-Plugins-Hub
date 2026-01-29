@@ -8,6 +8,15 @@ This template provides a production-ready starting point for building custom Pix
 - **Connection Handling**: Automatic connection management and status display.
 - **Overlay System**: Example overlay for "Click to Start" and "Loading" states.
 
+## UI Showcase
+
+The Generic Template features an adaptive UI that scales from desktop down to mobile:
+
+| Desktop | Tablet | Mobile |
+|---------|--------|--------|
+| ![Desktop](./resources/WebUI_Generic_DesktopSize.png) | ![Tablet](./resources/WebUI_Generic_TabletSize.png) | ![Mobile](./resources/WebUI_Generic_MobileSize.png) |
+
+
 ## Getting Started
 
 ### 1. Prerequisites
