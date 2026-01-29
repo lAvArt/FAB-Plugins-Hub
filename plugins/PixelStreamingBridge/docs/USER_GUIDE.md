@@ -31,6 +31,14 @@ Pixel Streaming Bridge (PSB) is a robust, production-ready solution for integrat
     *   Use the **Emit Event from Json** node.
     *   Specify the `Name` (e.g., "game.score_updated") and `PayloadJson` (e.g., `{"score": 100}`).
 
+![Bootstrap Core Binding](./resources/BP_PSBBootstrapCoreBinding.png)
+
+*Figure: Example of binding to the PSB Subsystem.*
+
+![Bootstrap Debug Example](./resources/BP_PSBBootstrapDebugExample.png)
+
+*Figure: Complete bootstrap and debug graph.*
+
 ### 3. Basic Setup (Web)
 Using the provided `@psb-ui` library:
 
@@ -76,11 +84,13 @@ For technical details, see [FAB_PRODUCT_DOCS.md](./FAB_PRODUCT_DOCS.md).
 
 This section details the core Blueprint nodes available in the PSB plugin.
 
+![PSB Plugin Nodes](./resources/PSB_PluginNodes.png)
+
 ### 1. OnCommandReceived
 **Description**: Fired when a JSON command is received from the Web UI.
 **Usage**: Bind to this event in your `GameInstance` or `Manager` actor to handle incoming logic.
 
-![OnCommandReceived Node](./resources/node_OnCommandReceived.png)
+![OnCommandReceived Node](./resources/node_OnCommandReceivedStructured.png)
 
 ### 2. OnPixelStreamingInput
 **Description**: Helper to process raw input from the Pixel Streaming component.
