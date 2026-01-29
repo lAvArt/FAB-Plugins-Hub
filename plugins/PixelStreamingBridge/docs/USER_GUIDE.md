@@ -96,18 +96,14 @@ This section details the core Blueprint nodes available in the PSB plugin.
 **Description**: Helper to process raw input from the Pixel Streaming component.
 **Usage**: Connect this to the standard `OnInputEvent` from the PixelStreamingInputComponent.
 
-![OnPixelStreamingInput Node](./resources/node_OnPixelStreamingInput.png)
-
 ### 3. EmitEventFromJson
 **Description**: Sends a JSON event to the Web UI.
 **Inputs**:
 *   `Name` (String): The event name (e.g. `game.score`).
 *   `PayloadJson` (String): The data payload.
 
-![EmitEventFromJson Node](./resources/node_EmitEventFromJson.png)
-
 ### 4. OnEmitResponse
 **Description**: Helper event that provides the "Response Descriptor" needed by the standard `Send Pixel Streaming Response` node.
 **Usage**: Use this to route PSB messages back through the standard Pixel Streaming response channel.
 
-![OnEmitResponse Node](./resources/node_OnEmitResponse.png)
+
