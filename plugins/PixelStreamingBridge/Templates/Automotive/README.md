@@ -207,4 +207,4 @@ automotive/
 - Documentation hub: [github.com/LavArtStudio/FAB-Plugins-Hub](https://github.com/LavArtStudio/FAB-Plugins-Hub)
 - Live demo: [automotive.lavartstudio.com](https://automotive.lavartstudio.com)
 
-Created by [Lav Art Studio](https://lavartstudio.com)
+Created by [lAvArt Studio](https://lavartstudio.com)
