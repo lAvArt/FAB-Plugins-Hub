@@ -305,54 +305,66 @@ export const connectionConfig = {
 
 ---
 
-## Pixel Streaming Command Integration
+## Pixel Streaming Communication Protocol
 
-Commands are sent as JSON payloads with `version`, `type`, `name`, and `payload`.
+The Automotive UI Template uses a structured JSON-based protocol to communicate with Unreal Engine. While compatible with any standard Pixel Streaming setup, it is optimized for the [Pixel Streaming Bridge (PSB) Plugin](https://www.fab.com/listings/f01be852-ed0a-4454-aefd-11771ef9b82b).
 
-Example envelope:
+### The Message Envelope
+
+Every message sent from the UI follows a strict "Envelope" format:
 
 ```json
 {
   "version": "1.0",
   "type": "command",
-  "name": "psb.vehicle.set_color",
-  "payload": {
-    "partId": "body",
-    "colorId": "obsidian",
-    "hex": "#0a0a0a"
-  }
+  "name": "namespace.action",
+  "payload": { ... }
 }
 ```
 
-### Command Mapping (`psbCommands`)
+- **version**: Protocol version (currently `1.0`).
+- **type**: The message type (usually `command` from UI to Unreal).
+- **name**: The unique identifier for the action (mapped in `config.ts`).
+- **payload**: An object containing the specific data for that command.
 
-- `setVehicle`: `psb.vehicle.set_vehicle`
-- `setPart`: `psb.vehicle.set_part`
-- `setColor`: `psb.vehicle.set_color`
-- `setView`: `psb.camera.set_view`
-- `setTrim`: `psb.vehicle.set_trim`
-- `setScene`: `psb.scene.set`
-- `setTime`: `psb.time.set`
-- `setWeather`: `psb.weather.set`
-- `toggleTurntable`: `psb.turntable.toggle`
-- `rotateTurntable`: `psb.turntable.rotate`
-- `resetCamera`: `psb.camera.reset`
-- `highlightFeature`: `psb.vehicle.highlight_feature`
-- `setMouseCursor`: `psb.system.set_mouse_cursor`
-- `triggerAnimation`: `psb.animation.trigger`
+### Command Reference
 
-### New Animation Command Behavior
+| Command | Protocol Name | Payload Example | Description |
+| :--- | :--- | :--- | :--- |
+| **Set Vehicle** | `psb.vehicle.set_vehicle` | `{ "vehicleId": "vision-gt" }` | Switches the active vehicle model. |
+| **Set Part** | `psb.vehicle.set_part` | `{ "partId": "rims" }` | Switches the active customization category. |
+| **Set Color** | `psb.vehicle.set_color` | `{ "partId": "body", "colorId": "red", "hex": "#FF0000" }` | Changes the color/material of a specific part. |
+| **Set View** | `psb.camera.set_view` | `{ "viewId": "interior" }` | Moves the Unreal camera to a predefined angle. |
+| **Set Trim** | `psb.vehicle.set_trim` | `{ "trimId": "performance" }` | Applies a specific trim level/sub-model. |
+| **Set Scene** | `psb.scene.set` | `{ "sceneId": "studio-dark" }` | Changes the environment or lighting setup. |
+| **Set Time** | `psb.time.set` | `{ "time": 14.5 }` | Sets the time of day (0.0 to 24.0). |
+| **Set Weather** | `psb.weather.set` | `{ "weatherId": "rainy" }` | Triggers weather effects (rain, snow, etc.). |
+| **Turntable Toggle** | `psb.turntable.toggle` | `{ "enabled": true }` | Starts or stops the automatic vehicle rotation. |
+| **Turntable Rotate** | `psb.turntable.rotate` | `{ "direction": "left", "degrees": 45 }` | Manually steps the vehicle rotation. |
+| **Reset Camera** | `psb.camera.reset` | `{}` | Returns the camera to the default start position. |
+| **Highlight Feature** | `psb.vehicle.highlight_feature` | `{ "featureId": "engine" }` | Focuses the camera on a specific hotspot. |
+| **Mouse Cursor** | `psb.system.set_mouse_cursor` | `{ "enabled": true }` | Toggles hardware/software mouse cursor visibility. |
+| **Trigger Animation** | `psb.animation.trigger` | `{ "enabled": true }` | Triggers vehicle animations like doors or roofs. |
 
-Viewer animate quick action toggles:
+### Receiving Events from Unreal
 
+The UI is built to listen for events coming back from Unreal Engine. If your Unreal project emits a message with `type: "event"`, the UI can react to it (e.g., updating the loading progress or handling errors).
+
+**Example Unreal-to-UI Event:**
 ```json
 {
-  "name": "psb.animation.trigger",
-  "payload": { "enabled": true }
+  "version": "1.0",
+  "type": "event",
+  "name": "psb.system.status",
+  "payload": { "status": "ready", "message": "Simulation Loaded" }
 }
 ```
 
-Toggle off sends `enabled: false`.
+### Integration Steps
+
+1. **In Unreal**: Use the `Pixel Streaming` input component to receive the JSON string.
+2. **In Blueprints/C++**: Parse the JSON string into a structure.
+3. **Using PSB Plugin**: If using the PSB Plugin, simply bind to the `OnCommandReceived` event and switch on the `Name` property to handle the logic.
 
 ---
 
