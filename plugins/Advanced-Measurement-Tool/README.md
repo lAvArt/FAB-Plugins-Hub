@@ -48,6 +48,66 @@ AMT draws distance, angle, area and volume measurements directly in the level vi
 *   **Optional and local.** It is part of the editor session only (a packaged game does not contain it), listens on 127.0.0.1, needs a token, and the plugin itself never calls an AI service or sends your project anywhere. Changes are undoable with Ctrl+Z.
 *   Setup in two minutes: [AI_ASSISTANT_GUIDE.md](AI_ASSISTANT_GUIDE.md). Every tool and argument: `Resources/Agent/TOOLS.md` in the plugin folder.
 
+## Screenshots
+
+![Advanced Measurement Tool](https://raw.githubusercontent.com/lAvArt/FAB-Plugins-Hub/main/plugins/Advanced-Measurement-Tool/Resources/Cover.jpg)
+
+### Angle
+
+![Angle](https://raw.githubusercontent.com/lAvArt/FAB-Plugins-Hub/main/plugins/Advanced-Measurement-Tool/Resources/Gallery/amt_gallery_01_angle.png)
+
+### Distance
+
+![Distance](https://raw.githubusercontent.com/lAvArt/FAB-Plugins-Hub/main/plugins/Advanced-Measurement-Tool/Resources/Gallery/amt_gallery_02_distance.png)
+
+### Area
+
+![Area](https://raw.githubusercontent.com/lAvArt/FAB-Plugins-Hub/main/plugins/Advanced-Measurement-Tool/Resources/Gallery/amt_gallery_03_area.png)
+
+### Volume
+
+![Volume](https://raw.githubusercontent.com/lAvArt/FAB-Plugins-Hub/main/plugins/Advanced-Measurement-Tool/Resources/Gallery/amt_gallery_04_volume.png)
+
+### Pick Mode
+
+![Pick Mode](https://raw.githubusercontent.com/lAvArt/FAB-Plugins-Hub/main/plugins/Advanced-Measurement-Tool/Resources/Gallery/amt_gallery_05_pick.png)
+
+### Snapping
+
+![Snapping](https://raw.githubusercontent.com/lAvArt/FAB-Plugins-Hub/main/plugins/Advanced-Measurement-Tool/Resources/Gallery/amt_gallery_06_snap.png)
+
+### Measurement list and export
+
+![Measurement list and export](https://raw.githubusercontent.com/lAvArt/FAB-Plugins-Hub/main/plugins/Advanced-Measurement-Tool/Resources/Gallery/amt_gallery_07_history.png)
+
+### Architectural drawing style
+
+![Architectural drawing style](https://raw.githubusercontent.com/lAvArt/FAB-Plugins-Hub/main/plugins/Advanced-Measurement-Tool/Resources/Gallery/amt_gallery_08_architectural.png)
+
+### Settings
+
+![Settings](https://raw.githubusercontent.com/lAvArt/FAB-Plugins-Hub/main/plugins/Advanced-Measurement-Tool/Resources/Gallery/amt_gallery_09_settings.png)
+
+### AI assistant interface (MCP) settings
+
+![AI assistant interface (MCP) settings](https://raw.githubusercontent.com/lAvArt/FAB-Plugins-Hub/main/plugins/Advanced-Measurement-Tool/Resources/Gallery/amt_gallery_10_mcp_settings.png)
+
+### Polyline
+
+![Polyline](https://raw.githubusercontent.com/lAvArt/FAB-Plugins-Hub/main/plugins/Advanced-Measurement-Tool/Resources/Gallery/amt_gallery_11_polyline.png)
+
+### Perimeter
+
+![Perimeter](https://raw.githubusercontent.com/lAvArt/FAB-Plugins-Hub/main/plugins/Advanced-Measurement-Tool/Resources/Gallery/amt_gallery_12_perimeter.png)
+
+### Radius
+
+![Radius](https://raw.githubusercontent.com/lAvArt/FAB-Plugins-Hub/main/plugins/Advanced-Measurement-Tool/Resources/Gallery/amt_gallery_13_radius.png)
+
+### Slope
+
+![Slope](https://raw.githubusercontent.com/lAvArt/FAB-Plugins-Hub/main/plugins/Advanced-Measurement-Tool/Resources/Gallery/amt_gallery_14_slope.png)
+
 ## Installation
 
 **From Fab:** add the plugin to your library, choose *Install to Engine* for your engine version, then enable it in `Edit > Plugins` and restart the editor.
