@@ -1,71 +1,96 @@
 # Advanced Measurement Tool (AMT)
 
-A professional-grade measurement and analysis plugin for Unreal Engine 5, designed to give level designers, architects, and QA teams precise control over their spatial data.
+A measurement and dimensioning plugin for the Unreal Editor, for level designers, architects and QA teams who need exact numbers from their scenes: click to measure in the viewport, or let an AI assistant measure and dimension for you.
 
 ![AMT Banner](https://raw.githubusercontent.com/lAvArt/FAB-Plugins-Hub/main/plugins/Advanced-Measurement-Tool/Resources/Banner.png)
 
 ## Overview
 
-The **Advanced Measurement Tool (AMT)** extends the Unreal Editor with a suite of precise measurement utilities. Whether you need to measure the distance between two vertices, calculate the surface area of a complex floor plan, or check the bounding volume of an asset, AMT provides the tools you need directly in the viewport.
+AMT draws distance, angle, area and volume measurements directly in the level viewport, keeps them in a list, converts them to metric or imperial units, and exports them to CSV or JSON. Version 1.1 adds an optional **AI assistant interface (MCP)**: a connected assistant such as Claude can find actors, measure actors, regions, brush volumes and rooms, add length, width and height dimensions around actors, and check its own work in a viewport screenshot.
 
-**Current Version:** v1.0  
-**Supported Engine Versions:** 5.0+
+- **Current version:** 1.1.0
+- **Unreal Engine:** 5.3, 5.4, 5.5, 5.6, 5.7 and 5.8. Fab provides a separate download for each version; choose the one that matches your engine.
+- **Platforms:** the plugin's descriptor allows Windows, macOS and Linux editors. It is developed and tested on Windows.
+- **Editor tool.** The viewport tools, the dashboard and the AI interface exist only in the editor. The plugin's small runtime modules (measurement types, the measurement subsystem, unit and export helpers, UMG list widget bases) are compiled into a game that enables the plugin.
 
 ## Features
 
-### 📏 Core Measurement Tools
-*   **Distance**: Measure linear distance in 3D space. Includes ground projection (show horizontal distance) and slope angle display.
-*   **Angle**: Measure the precise angle between any three points.
-*   **Area**: Define complex polygons point-by-point to calculate surface area.
-*   **Volume**: 
-    *   **Bounds Mode**: Measure the Axis-Aligned Bounding Box (AABB) of any actor.
-    *   **Geometry Mode**: Calculate the exact geometric volume of static meshes.
+### Core measurement tools (interactive)
+*   **Distance**: two points. *Singular* mode measures one distance; *Continuous* mode keeps going. Optional ground projection shows the horizontal distance and the slope.
+*   **Angle**: three points (start of the first leg, the vertex, end of the second leg).
+*   **Area**: any polygon of three or more points, measured in 3D.
+*   **Volume**: a box from two opposite corners. *Boundary* mode measures the box, *Geometry* mode measures the actor's collision geometry.
+*   **Polyline** (`L`): click points along a path; the live length follows the cursor and `Enter` finishes it. Two points or more.
+*   **Perimeter** (`O`): click the corners of a shape; the length of its outline follows the cursor and `Enter` finishes it. Three points or more.
+*   **Radius** (`C`): three points on a circle give its radius and diameter.
+*   **Slope** (`S`): two points give the slope in degrees and percent, with the rise and run drawn dashed.
+*   **Pick Mode** (`P`): hover an actor and click. Distance gives its length, width and height, Area its footprint rectangle, Volume its bounds or geometry volume. An optional actor tag filter limits what can be picked. Not available with the Angle tool or with Polyline, Perimeter, Radius and Slope, which are placed point by point.
 
-### 🧲 Advanced Snapping
-Precision is key. AMT includes a robust snapping system:
-*   **Grid Snap**: Accurately snap to the editor grid spacing.
-*   **Vertex Snap**: Snap to the nearest vertex of any static mesh.
-*   **Bounds Snap**: Snap to the corners and center points of actor bounds.
+### Snapping
+*   **Grid Snap** to the editor grid, **Vertex Snap** to the corners of actor bounds, and **Complex Snap** to the real mesh vertices.
 
-### 📊 Data Management
-*   **Measurement History**: Automatically tracks your session's measurements.
-*   **Import/Export**: Save your measurements to JSON or CSV for external reporting and analysis.
-*   **Visual Customization**: Fully configurable colors, line thickness, and font sizes to match your workflow.
+### Data
+*   **Measurement list** in the dashboard, with per-measurement visibility, isolate-latest and delete.
+*   **Export** to CSV or JSON and **import** from JSON.
+*   **Units**: metric or imperial, with separate area, volume and angle unit settings.
+*   **Appearance**: architectural or classic dimension style, line colour and thickness, point size, text scale, always-on-top (X-ray), screen or world space labels.
+*   **Blueprint and C++ access**: `UAMTMeasurementSubsystem` stores the measurements; `UAMTMeasurementFactory` builds any measurement from points, with the result and label computed the way the tools do.
+
+### New in 1.1: more measurement types
+*   **Polyline** (path length), **Perimeter** (closed loop), **Radius** (circle through three points, with its diameter) and **Slope** (degrees and percent). They have their own viewport tools and panel buttons (see above), are drawn and labelled like the others, and can also be created by the AI assistant tools and from Blueprint or C++ (`UAMTMeasurementFactory`).
+
+### New in 1.1: an architectural drawing style
+*   Stored measurements are drawn like a dimensioned drawing: thin lines that run a little past their ends, 45 degree ticks instead of point markers, fine extension lines from an automatic dimension back to the geometry, dashed construction lines for a slope's rise and run and a radius, and a quiet label that sits beside its line and shows a delete button only while it is selected. Ticks and dots keep their size on screen, near or far.
+*   Prefer the 1.0 look (plain lines, a square marker at every point, a boxed label)? Set **Dimension Style** to **Classic** in `Project Settings > Plugins > Advanced Measurement Tool > Appearance`.
+
+### AI assistant interface (MCP, beta)
+*   32 tools an assistant can call: see what the level contains (folders, tags, classes, layers), find actors by tag, folder, layer, class, name or a storey of a building, measure one actor or a whole group at once, between two things, a region, a room (detected with rays from a point), add dimensions or area and volume measurements to a group of actors and keep them in step with the actors, manage and export measurements, show them, frame the viewport and take a screenshot.
+*   **Optional and local.** It is part of the editor session only (a packaged game does not contain it), listens on 127.0.0.1, needs a token, and the plugin itself never calls an AI service or sends your project anywhere. Changes are undoable with Ctrl+Z.
+*   Setup in two minutes: [AI_ASSISTANT_GUIDE.md](AI_ASSISTANT_GUIDE.md). Every tool and argument: `Resources/Agent/TOOLS.md` in the plugin folder.
 
 ## Installation
 
-1.  Close Unreal Editor.
-2.  Download the `AdvancedMeasurementTool` folder.
-3.  Copy it into your project's `Plugins` directory (e.g., `MyProject/Plugins/`).
-4.  Launch Unreal Editor.
-5.  Go to `Edit > Plugins` and ensure **Advanced Measurement Tool** is enabled.
+**From Fab:** add the plugin to your library, choose *Install to Engine* for your engine version, then enable it in `Edit > Plugins` and restart the editor.
 
-## Usage Guide
+**From source:** close the editor, copy the `AdvancedMeasurementTool` folder into your project's `Plugins` folder, open the project (Unreal asks to build the plugin), and enable *Advanced Measurement Tool* in `Edit > Plugins`.
 
-### Activation
-Open the AMT Dashboard by clicking the **Toolbar Button** (Ruler Icon) or using the shortcut (default `Shift + M`).
+## Usage
+
+### Open the tool
+Click **Measurement Tool** in the Level Editor toolbar, or press `Ctrl+M` to show or hide the dashboard. One button per measurement tool sits next to it.
 
 ### Controls
 
-| Tool | Shortcut | Action |
-| :--- | :--- | :--- |
-| **Distance** | `D` | Click Start -> Click End. Hold `Shift` to drag the end point. |
-| **Angle** | `A` | Click Apex -> Click Start -> Click End. |
-| **Area** | `R` | Click multiple points to define shape. Press `Enter` to close loop. |
-| **Volume** | `V` | Hover over an actor and click to measure. |
-| **Clear** | `Delete - Backspace` | Remove the currently hovered measurement. |
-| **Exit Tool** | `Esc` | Stop the current measurement action. |
+| Action | Key |
+| :--- | :--- |
+| Distance / Angle / Area / Volume tool | `D` / `A` / `R` / `V` |
+| Polyline / Perimeter / Radius / Slope tool | `L` / `O` / `C` / `S` |
+| Pick Mode | `P` |
+| Place a point | Left mouse button |
+| Confirm / cancel the measurement in progress | `Enter` / `Esc` |
+| Delete the selected measurement | `Delete` (or its **[X]** label button) |
+| Clear all | `Shift+Delete` |
+| Show or hide all measurements | `Shift+H` |
+| Show only the latest measurement | `Shift+I` |
+| Toggle the dashboard | `Ctrl+M` |
 
-### Dashboard Overview
-The main dashboard gives you quick access to:
-*   **Tool Selection**: Switch between Distance, Angle, Area, and Volume modes.
-*   **Snapping Toggles**: Quickly enable/disable Grid, Vertex, and Bounds snapping.
-*   **History**: Review past measurements. Click the "Eye" icon to hide/show individual measurements.
-*   **Settings**: Configure units (Metric/Imperial), colors, and more.
+The tool keys work with the plain key only: with `Ctrl`, `Shift` or `Alt` held, or while the right mouse button flies the camera, the editor's own keys (`Ctrl+S`, `Ctrl+D`, `W A S D`...) are left alone.
 
-## Updates
+### Dashboard
+*   **Measurement Tools**: pick a tool, the Distance mode and the Volume mode.
+*   **Snapping**: master toggle, Grid, Vertex, Complex.
+*   **Interaction**: Pick Mode and its tag filter.
+*   **Actions**: show or hide, isolate, delete, clear.
+*   **Settings**: opens the plugin settings, restores the defaults, **Export** and **Import**.
 
-This plugin includes an integrated **Update Checker**. It will automatically check for new versions on startup (configurable in Project Settings) and notify you if an update is available.
+### Settings
+`Project Settings > Plugins > Advanced Measurement Tool`: Snapping, Appearance, Interaction and Measurement Display (units, widget space and alignment, projection lines).
+
+## Documentation
+*   [AI assistant guide](AI_ASSISTANT_GUIDE.md)
+*   [FAQ](FAQ.md)
+*   [Changelog](CHANGELOG.md)
+*   Report problems on the [issue page](https://github.com/lAvArt/FAB-Plugins-Hub/issues) with your engine version and the steps to reproduce.
 
 ---
 

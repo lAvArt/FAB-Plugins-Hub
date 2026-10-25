@@ -1,5 +1,5 @@
 {
-    "LatestVersion": "1.0",
-    "UpdateURL": "https://github.com/lAvArt/FAB-Plugins-Hub/tree/main/plugins/advanced-measurement-tool",
-    "ReleaseNotes": "Initial Release v1.0"
+  "LatestVersion": "1.1.0",
+  "UpdateURL": "https://github.com/lAvArt/FAB-Plugins-Hub/tree/main/plugins/Advanced-Measurement-Tool",
+  "ReleaseNotes": "1.1.0: architectural drawing style (Classic available in the settings), AI assistant interface (MCP, beta), four new measurement types with their own tools (Polyline, Perimeter, Radius, Slope), AI tools that find and measure groups of actors by folder, tag, layer or storey, Restore Defaults fixed, Unreal Engine 5.3 to 5.8. Parts of the 1.1.0 AI assistant layer (MCP server, tools, automated tests and documentation) and the new architectural drawing style were developed with AI assistance (Claude, by Anthropic) and reviewed by lAvArt Studio."
 }
