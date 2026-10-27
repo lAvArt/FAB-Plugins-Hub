@@ -1,5 +1,5 @@
 {
-    "LatestVersion": "1.0",
+    "LatestVersion": "1.1.0",
     "UpdateURL": "https://github.com/lAvArt/FAB-Plugins-Hub/tree/main/plugins/CADImporter",
-    "ReleaseNotes": "Initial Release v1.0"
+    "ReleaseNotes": "1.1.0: optional AI assistant tools over MCP (editor-only, beta): inspect a drawing before importing, import with explicit options, layers and materials, walls and static meshes, scene cleanup, viewport screenshots. The DXF parser now reads $INSUNITS (reported by the AI tools). Fixed: generated walls are now drawn on the side their normals point to (they looked inside out under a one-sided material), and Convert To Static Mesh no longer removes procedural walls it did not convert. Engines 5.3, 5.4, 5.5, 5.6, 5.7, 5.8. Parts of the 1.1.0 AI assistant layer (MCP server, tools, automated tests and documentation) and the fix to wall generation were developed with AI assistance (Claude, by Anthropic) and reviewed by lAvArt Studio."
 }
