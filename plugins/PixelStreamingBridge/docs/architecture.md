@@ -41,9 +41,9 @@ graph TD
 - **Responsibilities**:
     - Listening to Pixel Streaming input.
     - Parsing inbound JSON.
-    - Validating against `message-contract.md`.
+    - Validating the envelope against `message-contract.md` (and, optionally, payloads against the message manifest).
     - Routing commands to registered delegates.
-    - Emitting events via `SendEnvelopeJson` (uses `OnEmitResponse` if bound, else C++ transport).
+    - Emitting events via `SendEnvelopeJson`: a Blueprint bound to `OnEmitResponse` sends them, otherwise the C++ transport does (with **Blueprint Owns Responses** off, since 1.1.0, `OnEmitResponse` only observes and the transport sends).
 
 ### 3. Command Router
 - **Role**: Maps string names (e.g., "spawn_object") to C++ Delegates or Blueprint Event Dispatchers.

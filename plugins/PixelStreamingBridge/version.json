@@ -1,0 +1,5 @@
+{
+    "LatestVersion": "1.1.0",
+    "UpdateURL": "https://github.com/lAvArt/FAB-Plugins-Hub/tree/main/plugins/PixelStreamingBridge",
+    "ReleaseNotes": "1.1.0: optional message manifest with opt-in payload validation; Bind PSB Command with typed payload getters; Reply To Command Json (echoes requestId); optional, editor-only AI assistant tools over MCP (beta); opt-in settings Auto Start Without Bootstrap and observe-only On Emit Response (Blueprint Owns Responses off). Nothing changes an existing project by default. Fixed: a native PSBBootstrap without a Blueprint no longer drops outgoing events. Engines 5.3, 5.4, 5.5, 5.6, 5.7, 5.8. Parts of the 1.1.0 AI assistant layer (MCP server, tools, automated tests and documentation) were developed with AI assistance (Claude, by Anthropic) and reviewed by lAvArt Studio."
+}
